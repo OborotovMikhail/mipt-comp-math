@@ -1,1 +1,1 @@
-# MIPT_MPI
+# MIPT Computational Mathematics tasks
