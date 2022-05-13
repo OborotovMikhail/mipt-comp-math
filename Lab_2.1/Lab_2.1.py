@@ -93,22 +93,29 @@ for i in range(1, stepsNum):
 yResult = np.array(yIntegral)
 yResult = np.transpose(yResult)
 
+# Timeline
+timeline = np.arange(0, timeLimit + tStep, tStep)
+
 # Plotting
 fig, axs = plt.subplots(2, 2)
 fig.canvas.manager.set_window_title('Results')
 
-axs[0, 0].plot(yResult[0], label='Concentration of A')
+axs[0, 0].plot(timeline, yResult[0], label='Concentration of A')
+axs[0, 0].grid(linestyle = '--', linewidth = 0.5)
 axs[0, 0].legend()
 
-axs[0, 1].plot(yResult[1], 'tab:orange', label='Concentration of B')
+axs[0, 1].plot(timeline, yResult[1], 'tab:orange', label='Concentration of B')
+axs[0, 1].grid(linestyle = '--', linewidth = 0.5)
 axs[0, 1].legend()
 
-axs[1, 0].plot(yResult[2], 'tab:green', label='Concentration of C')
+axs[1, 0].plot(timeline, yResult[2], 'tab:green', label='Concentration of C')
+axs[1, 0].grid(linestyle = '--', linewidth = 0.5)
 axs[1, 0].legend()
 
-axs[1, 1].plot(yResult[0], label='Concentration of A')
-axs[1, 1].plot(yResult[1], 'tab:orange', label='Concentration of B')
-axs[1, 1].plot(yResult[2], 'tab:green', label='Concentration of C')
+axs[1, 1].plot(timeline, yResult[0], label='Concentration of A')
+axs[1, 1].plot(timeline, yResult[1], 'tab:orange', label='Concentration of B')
+axs[1, 1].plot(timeline, yResult[2], 'tab:green', label='Concentration of C')
+axs[1, 1].grid(linestyle = '--', linewidth = 0.5)
 axs[1, 1].legend()
 
 for ax in axs.flat:
