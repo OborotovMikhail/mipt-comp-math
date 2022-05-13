@@ -1,126 +1,71 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Grid step
+############### Parameters ###############
+
+# Grid step (set as a parameter)
 h = 1/20
 
-# Area boundaries
+# Area boundaries (set as a parameter)
+# Area is corner-shaped
 xMin = -1
 xMax = 1
 yMin = -1
 yMax = 1
 
-# Number of point
-xNum = int((xMax - xMin)/h)
-yNum = int((yMax - yMin)/h)
+# Number of points
+xPoints = int((xMax - xMin) / h + 1)
+yPoints = int((yMax - yMin) / h + 1)
 
-# Initializing matrix and u
-Matrix = np.zeros((xNum, yNum))
-u = np.zeros((xNum, yNum))
-
-# Checking if point is a part of the area
-def ifArea(i, j):
-	x = h * i
-	y = h * j
-	if (x > 0.) & (y < 0.):
-		return 0
-	else:
-		return 1
-
-# f(x, y) function and its boundaries, set by default
-# (right side function)
+# Function f(x,y) (set as a parameter)
 def f(x, y):
-    if (x >= -0.75) & (x <= -0.25) & (y >= 0.25) & (y <= 0.75):
-        return 1.
-    else:
-        return 0.
+    return 1
 
-# a(x, y) function, set by default
-def a(i):
-	x = i * h
-	return (x * x + 1.) / 10.
+# Function a(x,y) (set as a parameter)
+def a(x, y):
+    return (x ** 2 + 1) / 10
 
-# Calculate boundary value
-def calcBoundary(x, y):
-    if (x == 0):
-        return 1.
-    if (x == 1):
-        return y
-    if (x == -1):
-        return y * y
-    if (y == 0):
-        return 1.
-    if (y == 1):
-        return x
-    if (y == -1):
-        return x * x
+# Function a(x,y) derivative with respect to x (set as a parameter)
+def a_x(x, y):
+    return x / 5
 
-# Check if a point in boundary (and calculate if it is)
-def ifBoundary(i, j):
-    x = i * h
-    y = j * h
-    if (x == 0) | (x == 1) | (x == -1) | (y == 0) | (y == 1) | (y == -1):
-        return calcBoundary(x, y)
-    else:
-        return 0
+# Function a(x,y) derivative with respect to y (set as a parameter)
+def a_y(x, y):
+    return 0
 
-# Main part
-for l in range(0, yNum-1):
-    for m in range(0, xNum-1):
-        if (Matrix[m][l] == 0):
-            if (ifArea(m, l) == 0):
-                Matrix[m][l] = 0.
-                u[m][l] = 0.
-            else:
-                if (ifBoundary(m, l) != 0):
-                    Matrix[m][l] = 0.
-                    u[m][l] = ifBoundary(m, l)
-                else:
-                    Matrix[m][l] = (-2*a(m) - (a(m+1) - a(m)))/(h*h)
-            if (l != 0) & (l != yNum - 1) & (m != 0) & (m != xNum - 1):
-                if (ifArea(m+1, l) == 0):
-                    Matrix[m+1][l] = 0.
-                    u[m+1][l] = 0.
-                else:
-                    if (ifBoundary(m+1, l) != 0):
-                        Matrix[m+1][l] = 0.
-                        u[m+1][l] = ifBoundary(m+1, l)
-                    else:
-                        Matrix[m + 1][l] = (a(m) + (a(m + 1) - a(m))) / (h * h)
 
-                if (ifArea(m - 1, l) == 0):
-                    Matrix[m - 1][l] = 0.
-                    u[m - 1][l] = 0.
-                else:
-                    if (ifBoundary(m - 1, l) != 0):
-                        Matrix[m - 1][l] = 0.
-                        u[m - 1][l] = ifBoundary(m-1, l)
-                    else:
-                        Matrix[m-1][l] = a(m)/(h*h)
+############### Calculating the matrix ###############
 
-                if (ifArea(m, l+1) == 0):
-                    Matrix[m][l+1] = 0.
-                    u[m][l+1] = 0.
-                else:
-                    if (ifBoundary(m, l+1) != 0):
-                        Matrix[m][l+1] = 0.
-                        u[m][l+1] = ifBoundary(m, l+1)
-                    else:
-                        Matrix[m][l+1] = a(m)/(h*h)
+Matrix = np.array([]) # Initializing matrix a 1D array for now
+validPoints = np.array([]) # Initializing valid points (array of their indexes)
 
-                if (ifArea(m, l - 1) == 0):
-                    Matrix[m][l - 1] = 0.
-                    u[m][l - 1] = 0.
-                else:
-                    if (ifBoundary(m, l - 1) != 0):
-                        Matrix[m][l - 1] = 0.
-                        u[m][l - 1] = ifBoundary(m, l - 1)
-                    else:
-                        Matrix[m][l-1] = a(m)/(h*h)
+# Calculating valid point indexes according to our area
+# Border points are not included, only those inside the area
+# (Counting from the top left corner, going right)
+for i in range(xPoints):
+    for j in range(yPoints):
+        # Including indexes inside the area
+        if (i != 0 and j != 0 and i != (xPoints - 1) and j != (yPoints - 1)):
+            if (i < ((xPoints - 1) / 2) or j < ((yPoints - 1) / 2)):
+                index = xPoints * j + i # Point index in the 1D array
+                validPoints = np.append(validPoints, index)
 
-print(Matrix)
+# debug
+print(len(validPoints))
 
-# Matrix visualization
-plt.matshow(Matrix, cmap='plasma')
-plt.colorbar()
-plt.show()
+# Calculating values for the matrix elements
+for validIndex in validPoints :
+    for i in range(xPoints - 2) :
+        for j in range(yPoints - 2) :
+            index = RowLenght * (i + 1) + (j + 1) # Point index in the 1D array
+            
+            if index == validIndex :
+                # Значение в самом узле (центр креста)
+                Matrix = np.append(Matrix, 4)
+            elif abs(validIndex - index) == 1 or abs(validIndex - index) == RowLenght :
+                # Соседние элементы и элементы, отличающиеся на длину сетки некрайних узлов
+                # (концы креста)
+                Matrix = np.append(Matrix, -1)
+            else :
+                # Остальные значения = 0
+                Matrix = np.append(Matrix, 0)
