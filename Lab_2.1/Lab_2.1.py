@@ -95,20 +95,23 @@ yResult = np.transpose(yResult)
 
 # Plotting
 fig, axs = plt.subplots(2, 2)
-axs[0, 0].plot(yResult[0])
-axs[0, 0].set_title('Axis [0, 0]')
-axs[0, 1].plot(yResult[1], 'tab:orange')
-axs[0, 1].set_title('Axis [0, 1]')
-axs[1, 0].plot(yResult[2], 'tab:green')
-axs[1, 0].set_title('Axis [1, 0]')
-axs[1, 1].plot(yResult[2], 'tab:red')
-axs[1, 1].set_title('Axis [1, 1]')
+fig.canvas.manager.set_window_title('Results')
+
+axs[0, 0].plot(yResult[0], label='Concentration of A')
+axs[0, 0].legend()
+
+axs[0, 1].plot(yResult[1], 'tab:orange', label='Concentration of B')
+axs[0, 1].legend()
+
+axs[1, 0].plot(yResult[2], 'tab:green', label='Concentration of C')
+axs[1, 0].legend()
+
+axs[1, 1].plot(yResult[0], label='Concentration of A')
+axs[1, 1].plot(yResult[1], 'tab:orange', label='Concentration of B')
+axs[1, 1].plot(yResult[2], 'tab:green', label='Concentration of C')
+axs[1, 1].legend()
 
 for ax in axs.flat:
-    ax.set(xlabel='x-label', ylabel='y-label')
-
-# Hide x labels and tick labels for top plots and y ticks for right plots.
-for ax in axs.flat:
-    ax.label_outer()
-
+    ax.set(xlabel='Time, sec', ylabel='Concentration')
+           
 plt.show()
