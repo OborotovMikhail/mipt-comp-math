@@ -17,6 +17,25 @@ yMax = 1
 xPoints = int((xMax - xMin) / h + 1)
 yPoints = int((yMax - yMin) / h + 1)
 
+# Get i (step number, knowing index of the point
+def geti(index):
+    global xPoints
+    return index % xPoints
+
+def getj(index):
+    global xPoints
+    return index // xPoints
+
+# Get x value in point with index i
+def x(i):
+    global xMin, h
+    return xMin + i * h
+
+# Get y value in point with index j
+def y(j):
+    global yMin, h
+    return yMin + j * h
+
 # Function f(x,y) (set as a parameter)
 def f(x, y):
     return 1
@@ -33,39 +52,58 @@ def a_x(x, y):
 def a_y(x, y):
     return 0
 
+print(geti(43))
+print(getj(43))
 
 ############### Calculating the matrix ###############
 
-Matrix = np.array([]) # Initializing matrix a 1D array for now
-validPoints = np.array([]) # Initializing valid points (array of their indexes)
+Matrix = [] # Initializing matrix a 1D array for now
+validPoints = [] # Initializing valid points (array of their indexes)
 
 # Calculating valid point indexes according to our area
 # Border points are not included, only those inside the area
 # (Counting from the top left corner, going right)
 for i in range(xPoints):
     for j in range(yPoints):
-        # Including indexes inside the area
+        # Including indexes inside the area (without borders)
         if (i != 0 and j != 0 and i != (xPoints - 1) and j != (yPoints - 1)):
             if (i < ((xPoints - 1) / 2) or j < ((yPoints - 1) / 2)):
                 index = xPoints * j + i # Point index in the 1D array
-                validPoints = np.append(validPoints, index)
+                validPoints.append(int(index))
 
-# debug
-print(len(validPoints))
+print("\nNumber of valid points: ", len(validPoints), "\n") # DEBUG
+
+debugMatrCalcCurrent = 0 # DEBUG
+debugMatrCalcTotal = len(validPoints) # DEBUG (total matrix calc iterations)
 
 # Calculating values for the matrix elements
-for validIndex in validPoints :
-    for i in range(xPoints - 2) :
-        for j in range(yPoints - 2) :
-            index = RowLenght * (i + 1) + (j + 1) # Point index in the 1D array
-            
-            if index == validIndex :
-                # Значение в самом узле (центр креста)
-                Matrix = np.append(Matrix, 4)
-            elif abs(validIndex - index) == 1 or abs(validIndex - index) == RowLenght :
-                # Соседние элементы и элементы, отличающиеся на длину сетки некрайних узлов
-                # (концы креста)
-                Matrix = np.append(Matrix, -1)
-            else :
-                # Остальные значения = 0
-                Matrix = np.append(Matrix, 0)
+for validIndex in validPoints:
+    # For each valid index running through all area points (also all valid indexes)
+    for index in validPoints:
+        if (index == validIndex):
+            # Matrix element for point (i,j)
+            element = -4 * 0
+        elif ((index - validIndex) == -1):
+            # Matrix element for point (i-1,j)
+            element = 0
+        elif ((index - validIndex) == 1):
+            # Matrix element for point (i+1,j)
+            element = 0
+        elif ((index - validIndex) == -xPoints):
+            # Matrix element for point (i,j-1)
+            element = 0
+        elif ((index - validIndex) == xPoints):
+            # Matrix element for point (i,j+1)
+            element = 0
+        else:
+            # Matrix element for all other points
+            element = 0
+        # Adding calculated element to the matrix
+        Matrix.append(element)
+
+    debugMatrCalcCurrent += 1 # DEBUG
+    print("Matrix calculation iteration: ", debugMatrCalcCurrent, " of ", debugMatrCalcTotal) # DEBUG
+
+
+print("\nNumber of matrix elements: ", len(Matrix), "\n") # DEBUG
+
