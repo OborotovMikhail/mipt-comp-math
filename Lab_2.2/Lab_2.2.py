@@ -65,6 +65,28 @@ def y(j):
     global yMin, h
     return yMin + j * h
 
+# Fuction used to reshape 1D corner-area data array
+# to a 2D square-area data matrix
+# (Used to plot data)
+def reshapeToSquare(validPoints, data):
+    # validPoints - is an array of indexes of points in the corner-area
+    # data - is an array of values is these points
+
+    global xPoints, yPoints
+
+    # Initializing a 2D array with zeros
+    output = [[0 for i in range(xPoints)] for j in range(yPoints)]
+
+    # Runnig through all valid points
+    for k in range(len(validPoints)):
+        index = validPoints[k] # valid point index
+        value = data[k] # valid point value
+
+        # Adding point value to the 2D array
+        output[geti(index)][getj(index)] = value
+
+    return output
+
 # Function to visualize calculation progress
 # Source: https://stackoverflow.com/questions/3160699/python-progress-bar
 def progressbar(it, prefix="", size=60, out=sys.stdout):
@@ -95,6 +117,8 @@ for i in range(xPoints):
             if (i < ((xPoints - 1) / 2) or j < ((yPoints - 1) / 2)):
                 index = xPoints * j + i # Point index in the 1D array
                 validPoints.append(int(index))
+
+print("Number of valid points: ", len(validPoints), "\n") # DEBUG
 
 # Calculating values for the matrix elements
 for validIndex in progressbar(validPoints, "Computing matrix: ", 40):
@@ -163,7 +187,11 @@ for validIndex in progressbar(validPoints, "Computing right:  ", 40):
 
 print("Number of right side elements: ", len(Right)) # DEBUG
 
-############### Ploting the matrix ###############
+############### Calculating the solution ###############
+
+
+
+############### Plotting the matrix ###############
 
 fig, axs = plt.subplots(1, 2)
 fig.canvas.manager.set_window_title('Matrix')
@@ -180,4 +208,11 @@ colorbarAxis = inset_axes(axs[1],
 colorbarMap = axs[1].matshow(Matrix, cmap = 'magma')
 fig.colorbar(colorbarMap, cax = colorbarAxis, orientation = "vertical")
 
+plt.show()
+
+############### Plotting f(x,y) ###############
+
+plotRightData = reshapeToSquare(validPoints, Right)
+plotRightData = np.array(plotRightData)
+plt.spy(plotRightData)
 plt.show()
