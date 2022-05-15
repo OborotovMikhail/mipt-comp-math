@@ -189,31 +189,31 @@ print("Number of right side elements: ", len(Right)) # DEBUG
 
 ############### Calculating the solution ###############
 
-
+Solution = np.linalg.solve(Matrix, Right)
 
 ############### Plotting the matrix ###############
 
 # Creating figure and axis
-fig, axs = plt.subplots(1, 2)
-fig.canvas.manager.set_window_title('Matrix')
+figMatrix, axMatrix = plt.subplots(1, 2)
+figMatrix.canvas.manager.set_window_title('Matrix')
 
 # Black-n-white version
-axs[0].spy(Matrix)
+axMatrix[0].spy(Matrix)
 
 # Color map version
-colorbarAxis = inset_axes(axs[1],
+caxMatrix = inset_axes(axMatrix[1],
                    width = "5%",
                    height = "100%",
                    loc = 'lower left',
                    bbox_to_anchor = (1.05, 0., 1, 1),
-                   bbox_transform = axs[1].transAxes,
+                   bbox_transform = axMatrix[1].transAxes,
                    borderpad = 0)
-colorbarMap = axs[1].matshow(Matrix, cmap = 'magma')
-fig.colorbar(colorbarMap, cax = colorbarAxis, orientation = "vertical")
+cmapMatrix = axMatrix[1].matshow(Matrix, cmap = 'magma')
+figMatrix.colorbar(cmapMatrix, cax = caxMatrix, orientation = "vertical")
 
 # Titles
-axs[0].set_title('Black-n-white matrix plot')
-axs[1].set_title('Color map matrix plot')
+axMatrix[0].set_title('Black-n-white matrix plot')
+axMatrix[1].set_title('Color map matrix plot')
 
 ############### Plotting f(x,y) ###############
 
@@ -230,25 +230,55 @@ plotRightData = np.array(plotRightData)
 plotRightData = np.flip(plotRightData, 0)
 
 # Creating figure and axis
-fig2, axs2 = plt.subplots()
-fig2.canvas.manager.set_window_title('Function f(x,y) plot')
+figFunc, axFunc = plt.subplots()
+figFunc.canvas.manager.set_window_title('Function f(x,y) plot')
 
 # Color map version
-colorbarAxis = inset_axes(axs2,
+caxFunc = inset_axes(axFunc,
                    width = "5%",
                    height = "100%",
                    loc = 'lower left',
                    bbox_to_anchor = (1.05, 0., 1, 1),
-                   bbox_transform = axs2.transAxes,
+                   bbox_transform = axFunc.transAxes,
                    borderpad = 0)
-colorbarMap = axs2.contourf(xMesh, yMesh, plotRightData, cmap = 'magma')
-fig2.colorbar(colorbarMap, cax = colorbarAxis, orientation = "vertical")
-axs2.axis('square') # Forcing contourf plot to be square-shaped
+cmapFunc = axFunc.contourf(xMesh, yMesh, plotRightData, cmap = 'magma')
+figFunc.colorbar(cmapFunc, cax = caxFunc, orientation = "vertical")
+axFunc.axis('square') # Forcing contourf plot to be square-shaped
 
 # Title and labels
-axs2.set_title('Function f(x,y)')
-axs2.set_xlabel('x')
-axs2.set_ylabel('y')
+axFunc.set_title('Function f(x,y)')
+axFunc.set_xlabel('x')
+axFunc.set_ylabel('y')
+
+############### Plotting solution ###############
+
+# Transforming an array to a 2D array (for square-shaped area)
+plotSolution = reshapeToSquare(validPoints, Solution)
+plotSolution = np.array(plotSolution)
+
+# Flipping forizontally, as we used top-left corner as origin (not bottom-left)
+plotSolution = np.flip(plotSolution, 0)
+
+# Creating figure and axis
+figSolution, axSolution = plt.subplots()
+figSolution.canvas.manager.set_window_title('Solution plot')
+
+# Color map version
+caxSolution = inset_axes(axSolution,
+                   width = "5%",
+                   height = "100%",
+                   loc = 'lower left',
+                   bbox_to_anchor = (1.05, 0., 1, 1),
+                   bbox_transform = axSolution.transAxes,
+                   borderpad = 0)
+cmapSolution = axSolution.contourf(xMesh, yMesh, plotSolution, cmap = 'magma')
+figSolution.colorbar(cmapSolution, cax = caxSolution, orientation = "vertical")
+axSolution.axis('square') # Forcing contourf plot to be square-shaped
+
+# Title and labels
+axSolution.set_title('Solution')
+axSolution.set_xlabel('x')
+axSolution.set_ylabel('y')
 
 # Showing all figures
 plt.show()
