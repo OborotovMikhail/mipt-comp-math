@@ -19,11 +19,14 @@ yMax = 1  # Must be > 0
 xPoints = int((xMax - xMin) / h + 1)
 yPoints = int((yMax - yMin) / h + 1)
 
-# Area in which right side (f(x,y) function) is defined
+# Area in which right side (f(x,y) function) is defined (set as a parameter)
 f_xMin = xMin - xMin / 4
 f_xMax = xMin / 4
 f_yMin = yMax / 4
 f_yMax = yMax - yMax / 4
+
+# Desired error of the solution (set as a parameter)
+eps = 10 ** (-10)
 
 ############### Functions set as a parameter ###############
 
@@ -101,6 +104,36 @@ def progressbar(it, prefix="", size=60, out=sys.stdout):
         show(i+1)
     out.write("\n")
     out.flush()
+
+# Error calculation function
+def error(A, x, f) :
+    # Calculating error as ||Ax_n - f|| / ||f||
+    Ax = np.dot(A, x)
+    numerator = np.sqrt(sum( (Ax[i] - f[i]) ** 2 for i in range(len(f)) ))
+    denomerator = np.sqrt(sum( (f[i]) ** 2 for i in range(len(f)) ))
+    return numerator / denomerator
+
+############### Iterable solver method functions ###############
+
+# SIM(tau) - simple iteration method with tau
+def SIMtau(A, f, eps) :
+    solution = np.zeros(len(f)) # Solutions
+    errors = np.array([]) # Errors
+    
+    # Parameters for this method
+    I = np.eye(len(f))
+    tau = 2 / (max(np.linalg.eigvals(A)) + min(np.linalg.eigvals(A)))
+    
+    currentError = error(A, solution, f) # First step error
+    while currentError > eps :
+        errors = np.append(errors, currentError) # Adding error to the array
+        
+        # Iterable method
+        solution = np.dot((I - np.dot(tau, A)), solution) + np.dot(tau, f)
+        
+        currentError = error(A, solution, f) # Calculating new error
+    
+    return solution, errors
 
 ############### Calculating the matrix ###############
 
@@ -208,7 +241,7 @@ caxMatrix = inset_axes(axMatrix[1],
                    bbox_to_anchor = (1.05, 0., 1, 1),
                    bbox_transform = axMatrix[1].transAxes,
                    borderpad = 0)
-cmapMatrix = axMatrix[1].matshow(Matrix, cmap = 'magma')
+cmapMatrix = axMatrix[1].matshow(Matrix, cmap = 'plasma')
 figMatrix.colorbar(cmapMatrix, cax = caxMatrix, orientation = "vertical")
 
 # Titles
@@ -241,7 +274,7 @@ caxFunc = inset_axes(axFunc,
                    bbox_to_anchor = (1.05, 0., 1, 1),
                    bbox_transform = axFunc.transAxes,
                    borderpad = 0)
-cmapFunc = axFunc.contourf(xMesh, yMesh, plotRightData, cmap = 'magma')
+cmapFunc = axFunc.contourf(xMesh, yMesh, plotRightData, cmap = 'plasma')
 figFunc.colorbar(cmapFunc, cax = caxFunc, orientation = "vertical")
 axFunc.axis('square') # Forcing contourf plot to be square-shaped
 
@@ -271,7 +304,7 @@ caxSolution = inset_axes(axSolution,
                    bbox_to_anchor = (1.05, 0., 1, 1),
                    bbox_transform = axSolution.transAxes,
                    borderpad = 0)
-cmapSolution = axSolution.contourf(xMesh, yMesh, plotSolution, cmap = 'magma')
+cmapSolution = axSolution.contourf(xMesh, yMesh, plotSolution, cmap = 'plasma')
 figSolution.colorbar(cmapSolution, cax = caxSolution, orientation = "vertical")
 axSolution.axis('square') # Forcing contourf plot to be square-shaped
 
