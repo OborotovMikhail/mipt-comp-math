@@ -14,7 +14,7 @@
 
 Implement a numerical method for solving the Poisson equation:
 
-−div(a grad(u)) = f
+div(a grad(u)) = f
 
 The area of interest:
 
