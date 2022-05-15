@@ -9,15 +9,21 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 h = 1/20
 
 # Area boundaries (set as a parameter)
-# Area is corner-shaped
-xMin = -1
-xMax = 1
-yMin = -1
-yMax = 1
+# Area is corner-shaped!
+xMin = -1 # Must be < 0
+xMax = 1  # Must be > 0
+yMin = -1 # Must be < 0
+yMax = 1  # Must be > 0
 
 # Number of points
 xPoints = int((xMax - xMin) / h + 1)
 yPoints = int((yMax - yMin) / h + 1)
+
+# Area in which right side (f(x,y) function) is defined
+f_xMin = xMin - xMin / 4
+f_xMax = xMin / 4
+f_yMin = yMax / 4
+f_yMax = yMax - yMax / 4
 
 ############### Functions set as a parameter ###############
 
@@ -119,7 +125,7 @@ for validIndex in progressbar(validPoints, "Computing matrix: ", 40):
         # Adding calculated element to the matrix
         Matrix.append(element)
 
-print("\nNumber of matrix elements: ", len(Matrix)) # DEBUG
+print("Number of matrix elements: ", len(Matrix)) # DEBUG
 
 # Reshaping the matrix
 Matrix = np.array(Matrix)
@@ -127,9 +133,38 @@ Matrix = Matrix.reshape(len(validPoints), len(validPoints))
 
 print("Calculated matrix shape:   ", Matrix.shape, "\n") # DEBUG
 
-############### Plots ###############
+############### Calculating the right side (f(x,y) vector) ###############
 
-# Plotting
+Right = [] # Initializing right side vector (array)
+rightSidePoints = [] # Initializing right side points (array of their indexes)
+
+# Calculating right side point indexes according to the area in which right side is defined
+# (Counting from the top left corner, going right)
+for i in range(xPoints):
+    for j in range(yPoints):
+        # Including indexes inside the area (without borders)
+        if (x(i) > f_xMin and x(i) < f_xMax and y(j) > f_yMin and y(j) < f_yMax):
+            index = xPoints * j + i # Point index in the 1D array
+            rightSidePoints.append(int(index))
+
+# Running through valid points, and coputing right side if it is defined in the point
+for validIndex in progressbar(validPoints, "Computing right:  ", 40):
+    # Checking if right side is defined in the current point
+    isDefined = 0
+    for rightIndex in rightSidePoints:
+        if (rightIndex == validIndex):
+            isDefined = 1
+    # If defined, then calculating right side
+    # Else, assuming it is 0
+    if (isDefined):
+        Right.append(f(x(geti(validIndex)), y(getj(validIndex))))
+    else:
+        Right.append(0.)
+
+print("Number of right side elements: ", len(Right)) # DEBUG
+
+############### Ploting the matrix ###############
+
 fig, axs = plt.subplots(1, 2)
 fig.canvas.manager.set_window_title('Matrix')
 
