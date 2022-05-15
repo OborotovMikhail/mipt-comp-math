@@ -261,7 +261,7 @@ xMesh, yMesh = np.meshgrid(xGrid, yGrid)
 plotRightData = reshapeToSquare(validPoints, Right)
 plotRightData = np.array(plotRightData)
 
-# Flipping forizontally, as we used top-left corner as origin (not bottom-left)
+# Flipping horizontally, as we used top-left corner as origin (not bottom-left)
 plotRightData = np.flip(plotRightData, 0)
 
 # Creating figure and axis
@@ -291,7 +291,7 @@ axFunc.set_ylabel('y')
 plotSolution = reshapeToSquare(validPoints, solution)
 plotSolution = np.array(plotSolution)
 
-# Flipping forizontally, as we used top-left corner as origin (not bottom-left)
+# Flipping horizontally, as we used top-left corner as origin (not bottom-left)
 plotSolution = np.flip(plotSolution, 0)
 
 # Creating figure and axis
