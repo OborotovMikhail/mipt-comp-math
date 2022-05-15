@@ -63,7 +63,7 @@ def x(i):
 # Get y value in point with index j
 def y(j):
     global yMin, h
-    return yMin + j * h
+    return yMax - j * h
 
 # Fuction used to reshape 1D corner-area data array
 # to a 2D square-area data matrix
@@ -83,7 +83,7 @@ def reshapeToSquare(validPoints, data):
         value = data[k] # valid point value
 
         # Adding point value to the 2D array
-        output[geti(index)][getj(index)] = value
+        output[getj(index)][geti(index)] = value
 
     return output
 
