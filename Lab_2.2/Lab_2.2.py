@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
-############### Parameters ###############
+######################## Parameters ########################
 
 # Grid step (set as a parameter)
 h = 1/20
@@ -26,9 +26,9 @@ f_yMin = yMax / 4
 f_yMax = yMax - yMax / 4
 
 # Desired error of the solution (set as a parameter)
-eps = 10 ** (-10)
+eps = 10 ** (-6)
 
-############### Functions set as a parameter ###############
+######################## Functions set as a parameter ########################
 
 # Function f(x,y) (set as a parameter)
 def f(x, y):
@@ -46,7 +46,7 @@ def a_x(x, y):
 def a_y(x, y):
     return 0
 
-############### Supporting functions ###############
+######################## Supporting functions ########################
 
 # Get i (step number along x axis), knowing index of the point
 def geti(index):
@@ -113,29 +113,29 @@ def error(A, x, f) :
     denomerator = np.sqrt(sum( (f[i]) ** 2 for i in range(len(f)) ))
     return numerator / denomerator
 
-############### Iterable solver method functions ###############
+######################## Iterable solver method functions ########################
 
-# SIM(tau) - simple iteration method with tau
-def SIMtau(A, f, eps) :
-    solution = np.zeros(len(f)) # Solutions
-    errors = np.array([]) # Errors
+# Jacobi method
+# Calculations like in NumPy
+def Jacobi(A, f, eps) :
+    solution = [0 for i in range(len(f))] # Solutions
+    errors = [] # Errors
     
-    # Parameters for this method
-    I = np.eye(len(f))
-    tau = 2 / (max(np.linalg.eigvals(A)) + min(np.linalg.eigvals(A)))
+    # Method variables
+    D = np.diag(A)
+    R = A - np.diagflat(D)
     
     currentError = error(A, solution, f) # First step error
     while currentError > eps :
-        errors = np.append(errors, currentError) # Adding error to the array
+        errors.append(currentError) # Adding error to the array
         
-        # Iterable method
-        solution = np.dot((I - np.dot(tau, A)), solution) + np.dot(tau, f)
+        # Main method
+        solution = (f - R @ solution) / D
         
-        currentError = error(A, solution, f) # Calculating new error
-    
+        currentError = error(A, solution, f) # New error
     return solution, errors
 
-############### Calculating the matrix ###############
+######################## Calculating the matrix ########################
 
 Matrix = [] # Initializing matrix a 1D array for now
 validPoints = [] # Initializing valid points (array of their indexes)
@@ -190,7 +190,7 @@ Matrix = Matrix.reshape(len(validPoints), len(validPoints))
 
 print("Calculated matrix shape:   ", Matrix.shape, "\n") # DEBUG
 
-############### Calculating the right side (f(x,y) vector) ###############
+######################## Calculating the right side (f(x,y) vector) ########################
 
 Right = [] # Initializing right side vector (array)
 rightSidePoints = [] # Initializing right side points (array of their indexes)
@@ -220,11 +220,13 @@ for validIndex in progressbar(validPoints, "Computing right:  ", 40):
 
 print("Number of right side elements: ", len(Right)) # DEBUG
 
-############### Calculating the solution ###############
+######################## Calculating the solution ########################
 
-Solution = np.linalg.solve(Matrix, Right)
+print("\nCalculating solution:")
+solution, errors = Jacobi(Matrix, Right, eps)
+print("Done\n")
 
-############### Plotting the matrix ###############
+######################## Plotting the matrix ########################
 
 # Creating figure and axis
 figMatrix, axMatrix = plt.subplots(1, 2)
@@ -248,7 +250,7 @@ figMatrix.colorbar(cmapMatrix, cax = caxMatrix, orientation = "vertical")
 axMatrix[0].set_title('Black-n-white matrix plot')
 axMatrix[1].set_title('Color map matrix plot')
 
-############### Plotting f(x,y) ###############
+######################## Plotting f(x,y) ########################
 
 # Creating x,y mesh
 xGrid = np.array(range(xPoints)) * h + xMin
@@ -266,7 +268,7 @@ plotRightData = np.flip(plotRightData, 0)
 figFunc, axFunc = plt.subplots()
 figFunc.canvas.manager.set_window_title('Function f(x,y) plot')
 
-# Color map version
+# Plot
 caxFunc = inset_axes(axFunc,
                    width = "5%",
                    height = "100%",
@@ -283,35 +285,42 @@ axFunc.set_title('Function f(x,y)')
 axFunc.set_xlabel('x')
 axFunc.set_ylabel('y')
 
-############### Plotting solution ###############
+######################## Plotting solution ########################
 
 # Transforming an array to a 2D array (for square-shaped area)
-plotSolution = reshapeToSquare(validPoints, Solution)
+plotSolution = reshapeToSquare(validPoints, solution)
 plotSolution = np.array(plotSolution)
 
 # Flipping forizontally, as we used top-left corner as origin (not bottom-left)
 plotSolution = np.flip(plotSolution, 0)
 
 # Creating figure and axis
-figSolution, axSolution = plt.subplots()
-figSolution.canvas.manager.set_window_title('Solution plot')
+figSolution, axSolution = plt.subplots(1, 2)
+figSolution.canvas.manager.set_window_title('Solution with Jacobi method')
 
-# Color map version
-caxSolution = inset_axes(axSolution,
+# Error plot
+errIterations = [i for i in range(len(errors))]
+axSolution[0].plot(errIterations, errors)
+
+# Solution plot
+caxSolution = inset_axes(axSolution[1],
                    width = "5%",
                    height = "100%",
                    loc = 'lower left',
                    bbox_to_anchor = (1.05, 0., 1, 1),
-                   bbox_transform = axSolution.transAxes,
+                   bbox_transform = axSolution[1].transAxes,
                    borderpad = 0)
-cmapSolution = axSolution.contourf(xMesh, yMesh, plotSolution, cmap = 'plasma')
+cmapSolution = axSolution[1].contourf(xMesh, yMesh, plotSolution, cmap = 'plasma')
 figSolution.colorbar(cmapSolution, cax = caxSolution, orientation = "vertical")
-axSolution.axis('square') # Forcing contourf plot to be square-shaped
+axSolution[1].axis('square') # Forcing contourf plot to be square-shaped
 
 # Title and labels
-axSolution.set_title('Solution')
-axSolution.set_xlabel('x')
-axSolution.set_ylabel('y')
+axSolution[0].set_title('Errors (Jacobi method)')
+axSolution[0].set_xlabel('Iterations')
+axSolution[0].set_ylabel('$||Ax_n - f||/||f||$')
+axSolution[1].set_title('Solution (Jacobi method)')
+axSolution[1].set_xlabel('$x$')
+axSolution[1].set_ylabel('$y$')
 
 # Showing all figures
 plt.show()
