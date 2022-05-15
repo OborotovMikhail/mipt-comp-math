@@ -193,11 +193,14 @@ print("Number of right side elements: ", len(Right)) # DEBUG
 
 ############### Plotting the matrix ###############
 
+# Creating figure and axis
 fig, axs = plt.subplots(1, 2)
 fig.canvas.manager.set_window_title('Matrix')
 
+# Black-n-white version
 axs[0].spy(Matrix)
 
+# Color map version
 colorbarAxis = inset_axes(axs[1],
                    width = "5%",
                    height = "100%",
@@ -208,11 +211,44 @@ colorbarAxis = inset_axes(axs[1],
 colorbarMap = axs[1].matshow(Matrix, cmap = 'magma')
 fig.colorbar(colorbarMap, cax = colorbarAxis, orientation = "vertical")
 
-plt.show()
+# Titles
+axs[0].set_title('Black-n-white matrix plot')
+axs[1].set_title('Color map matrix plot')
 
 ############### Plotting f(x,y) ###############
 
+# Creating x,y mesh
+xGrid = np.array(range(xPoints)) * h + xMin
+yGrid = np.array(range(yPoints)) * h + yMin
+xMesh, yMesh = np.meshgrid(xGrid, yGrid)
+
+# Transforming an array to a 2D array (for square-shaped area)
 plotRightData = reshapeToSquare(validPoints, Right)
 plotRightData = np.array(plotRightData)
-plt.spy(plotRightData)
+
+# Flipping forizontally, as we used top-left corner as origin (not bottom-left)
+plotRightData = np.flip(plotRightData, 0)
+
+# Creating figure and axis
+fig2, axs2 = plt.subplots()
+fig2.canvas.manager.set_window_title('Function f(x,y) plot')
+
+# Color map version
+colorbarAxis = inset_axes(axs2,
+                   width = "5%",
+                   height = "100%",
+                   loc = 'lower left',
+                   bbox_to_anchor = (1.05, 0., 1, 1),
+                   bbox_transform = axs2.transAxes,
+                   borderpad = 0)
+colorbarMap = axs2.contourf(xMesh, yMesh, plotRightData, cmap = 'magma')
+fig2.colorbar(colorbarMap, cax = colorbarAxis, orientation = "vertical")
+axs2.axis('square') # Forcing contourf plot to be square-shaped
+
+# Title and labels
+axs2.set_title('Function f(x,y)')
+axs2.set_xlabel('x')
+axs2.set_ylabel('y')
+
+# Showing all figures
 plt.show()
