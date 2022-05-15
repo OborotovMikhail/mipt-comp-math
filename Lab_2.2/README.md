@@ -28,11 +28,11 @@ Right side is non-zero on the square S. Function a(x,y) = (x^2 + 1)/10 by defaul
 
 Below is a theoretical derivation of the algorithm for compiling the SLE matrix for this equation.
 
-![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.2/imageTheory1.png? "Theory")
+![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.2/imageTheory1.jpg? "Theory")
 
-![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.2/imageTheory2.png? "Theory")
+![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.2/imageTheory2.jpg? "Theory")
 
-![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.2/imageTheory3.png? "Theory")
+![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.2/imageTheory3.jpg? "Theory")
 
 With the help of these coefficients of the elements we will compute a matrix form for our SLE.
 
