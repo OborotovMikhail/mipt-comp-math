@@ -14,7 +14,7 @@
 
 The task is to implement a numerical method for solving the Poisson equation:
 
-$$ \text{div}(a(x,y) \dot \text{grad}(u(x,y))) = f(x,y) $$
+$$ div(a(x,y) \dot grad(u(x,y))) = f(x,y) $$
 
 The area of interest:
 
