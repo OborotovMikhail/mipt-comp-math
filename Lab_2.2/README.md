@@ -2,7 +2,7 @@
 
 ## Contents
 
-[Main task](#Main-task)
+[Task](#Task)
 
 [Calculation method](#Calculation-method)
 
@@ -10,17 +10,17 @@
 
 [Program output](#Program-output)
 
-## Main task
+## Task
 
-Implement a numerical method for solving the Poisson equation:
+The task is to implement a numerical method for solving the Poisson equation:
 
-div(a grad(u)) = f
+$$ div(a grad(u)) = f $$
 
 The area of interest:
 
 ![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.2/readmeImages/imageArea.png? "The area of interest")
 
-Right side is non-zero on the square S. Function a(x,y) = (x^2 + 1)/10 by default.
+Right side of the equation is not zero on the square S. Function a(x,y) = (x^2 + 1)/10 by default.
 
 [:arrow_up: Back to contents](#Contents)
 
