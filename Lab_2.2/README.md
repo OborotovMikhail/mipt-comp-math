@@ -14,19 +14,19 @@
 
 The task is to implement a numerical method for solving the Poisson equation:
 
-$$ div(a(x,y) \cdot grad(u(x,y))) = f(x,y) $$
+`$$ div(a(x,y) \cdot grad(u(x,y))) = f(x,y) $$`
 
 The area of interest:
 
 ![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.2/readmeImages/imageArea.png? "The area of interest")
 
-Right side of the equation is not zero on the square S. Function $a(x,y) = (x^2 + 1)/10$ by default.
+Right side of the equation is not zero on the square S. Function `$a(x,y) = (x^2 + 1)/10$` by default.
 
 [:arrow_up: Back to contents](#Contents)
 
 ## Calculation method
 
-Below is a theoretical derivation of the algorithm for compiling the SLE matrix for this equation.
+Below is a theoretical derivation of the algorithm for compiling the SLE (system of linear equations) matrix for this equation.
 
 ![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.2/readmeImages/imageTheory1.jpg? "Theory")
 
