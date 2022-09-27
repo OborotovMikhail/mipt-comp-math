@@ -12,19 +12,19 @@
 
 ## Task
 
-A system of ODES describing the kinetics of a chemical reaction is considered, in which three reagents are involved, designated as A, B and C. The process can be written as three elementary reactions of the second order.
+We are looking at a system of differential equations describing the kinetics of a chemical reaction, in which three reagents are involved, designated as $A$, $B$ and $C$. The process can be written as three elementary reactions of the second order.
 
-$$ TODO $$
-$$ TODO $$
-$$ TODO $$
+$$ A + A \to B $$
+$$ B + B \to C + B $$
+$$ B + C \to A + C $$
 
-Constants k1, k2 and k3 denote the rate of the corresponding chemical reaction (i.e., the change in the concentration of the substance per unit time). The reaction rates are very different: k1 = 0.04 (slow), k2 = 3 ⋅ 10^7 (very fast), k3 = 10^4 (fast). This leads to the following system of ODES:
+Constants $k_1$, $k_2$ and $k_3$ denote the rate of the corresponding chemical reaction (i.e., the change in the concentration of the substance per unit of time). The reaction differ a lot: $k_1 = 0.04$ (slow), $k_2 = 3 \cdot 10^7$ (very fast), $k_3 = 10^4$ (fast). This leads to the following system of differential equations:
 
-$$ TODO $$
-$$ TODO $$
-$$ TODO $$
+$$ y_1' = - k_1 y_1 + k_3 y_2 y_3 $$
+$$ y_2' = k_1 y_1 - k_3 y_2 y_3 - k_2 y_2^2 $$
+$$ y_3' = k_2 y_2^2 $$
 
-where y1 is the concentration of the substance A, y2 is the concentration of the substance B, y3 is the concentration of the substance C. The initial concentrations are: y1(0) = 1, y2(0) = 0, y3(0) = 1. A strong difference in the rates of chemical reactions leads to the fact that the resulting system The ODE is rigid.
+Here $y_1$ is the concentration of the substance $A$, $y_2$ is the concentration of the substance $B$, and $y_3$ is the concentration of the substance $C$. The initial concentrations are: $y_1(0) = 1$, $y_2(0) = 0$, $y_3(0) = 0$. The resulting system of differential equations is rigid because of the big difference in the rates of chemical reactions.
 
 [:arrow_up: Back to contents](#Contents)
 
