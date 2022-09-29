@@ -48,6 +48,19 @@ The task is to depict the dynamics of the concentration of substances in the tim
 
 ## Program output
 
+The program outputs 4 graphs as a result of the work. Those are the graphs of concentrations of substances $A$, $B$ and $C$ in the cosidered time period (starting from $t = 0$) separately and one
+graph on which all concentrations are plotted together.
 
+Individual oncentration graphs:
+
+![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.1/readmeImages/imagePlot1.png? "Concentration of A")
+
+![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.1/readmeImages/imagePlot2.png? "Concentration of B")
+
+![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.1/readmeImages/imagePlot3.png? "Concentration of C")
+
+All concentrations on the same graph:
+
+![alt text](https://github.com/OborotovMikhail/MIPT_CompMath/blob/main/Lab_2.1/readmeImages/imagePlot4.png? "All concentrations on the same graph")
 
 [:arrow_up: Back to contents](#Contents)
