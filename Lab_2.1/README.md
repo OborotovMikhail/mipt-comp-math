@@ -44,7 +44,8 @@ The task is to depict the dynamics of the concentration of substances in the tim
 
 The first section of the code is dedicated to the parameters set by the user.
 
-The program is implemented in such a way that in its parameters it is possible to set another area S (however, in the same quarter of the plane). You can specify other functions $f(x,y)$ and $a(x,y)$, but the derivatives of $a(x,y)$ will have to be calculated manually. The possibility of dependence of $a(x,y)$ on $y$ is taken into account (that is, the case of a non-zero derivative with respect to $y$ is taken into account).
+It is possible to set different chemical reaction speeds, number of steps and the time limit. It is also possible to change the ODE (Ordinary differential equation) system, initial conditions for $y$ and the Butcher matrix for Runge-Kutta method.
+
 
 [:arrow_up: Back to contents](#Contents)
 
