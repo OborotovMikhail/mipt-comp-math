@@ -1,24 +1,25 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-N = 4  # Значение по условию (обратное h)
-h = 1 / N
+N = 4 # Number of steps (set as a parameter)
+h = 1 / N # Grid step
 
-RowLenght = N + 1  # Количество узлов по одной оси
+RowLenght = N + 1 # Number of nodes on 1 axis
 
-Matrix = np.array([])  # Строка значений матрицы
-Valid = np.array([])  # Массив интересующих узлов (не крайние)
+Matrix = np.array([]) # SLE matrix values (as a string, not a matrix)
+Valid = np.array([]) # Array of nodes of interest (all except border nodes)
 
-# Заполняем массив интересующих узлов (т.е. НЕ крайних)
-# Крайние узлы не будут рассматриваться с матрице СЛАУ (дают нулевой вклад в нее)
+# Filling an array of valid nodes (the nodes of interest)
+# Border nodes are not of interest as they have a zero contribution to the SLE matrix values
 for i in range(RowLenght):
     for j in range(RowLenght):
-        index = RowLenght * i + j  # Номер узла (строчный)
-        # Включаем только НЕ крайние узлы
+        index = RowLenght * i + j # Node index
+        # Including all nodes except border ones
         if (i != 0 and j != 0 and i != (RowLenght - 1) and j != (RowLenght - 1)):
             Valid = np.append(Valid, index)
 
-print("Интересующие узлы сетки:")
+# Printing idexes of nodes of interest
+print("\nNodes of interest:")
 print(Valid)
 
 # Заполняем матрицу для каждого некрайнего узла
