@@ -25,7 +25,8 @@ print(Matrix)
 
 # Plotting SLE matrix visualization
 figMatrix, axMatrix = plt.subplots(1, 1)
-figMatrix.canvas.manager.set_window_title('SLE matrix visualization')
+figMatrix.canvas.manager.set_window_title('Theoretical SLE matrix visualization')
+axMatrix.set_title('Theoretical SLE matrix visualization')
 axMatrix.spy(Matrix)
 
 # Printing RHS of the SLE
