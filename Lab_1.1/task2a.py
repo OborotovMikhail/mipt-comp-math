@@ -23,10 +23,11 @@ print("\nNodes of interest:")
 print(Valid)
 
 # Заполняем матрицу для каждого некрайнего узла
+# Filling in a matrix
 for validIndex in Valid:
     for i in range(RowLenght - 2):
         for j in range(RowLenght - 2):
-            index = RowLenght * (i + 1) + (j + 1)  # Номер узла (строчный)
+            index = RowLenght * (i + 1) + (j + 1) # Номер узла (строчный)
 
             if index == validIndex:
                 # Значение в самом узле (центр креста)
@@ -45,5 +46,6 @@ Matrix = Matrix / h / h  # учитываем h
 
 print("Получаемая матрица СЛАУ:")
 print(Matrix)
-plt.spy(Matrix)  # Визуализация матрицы СЛАУ
+
+plt.spy(Matrix) # Визуализация матрицы СЛАУ
 plt.show()
