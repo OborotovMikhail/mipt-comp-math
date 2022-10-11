@@ -22,15 +22,14 @@ for i in range(RowLenght):
 print("\nNodes of interest:")
 print(Valid)
 
-# Заполняем матрицу для каждого некрайнего узла
-# Filling in a matrix
+# Filling in matrix values for each node
 for validIndex in Valid:
     for i in range(RowLenght - 2):
         for j in range(RowLenght - 2):
-            index = RowLenght * (i + 1) + (j + 1) # Номер узла (строчный)
+            index = RowLenght * (i + 1) + (j + 1) # Node index
 
             if index == validIndex:
-                # Значение в самом узле (центр креста)
+                # Value in the node itself (center of the cross)
                 Matrix = np.append(Matrix, 4)
             elif abs(validIndex - index) == 1 or abs(validIndex - index) == RowLenght:
                 # Соседние элементы и элементы, отличающиеся на длину сетки некрайних узлов
