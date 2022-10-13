@@ -22,7 +22,7 @@ for i in range(RowLenght):
 print("\nNodes of interest:")
 print(Valid)
 
-# Filling in matrix values for each node
+# Calculating matrix values for each node
 for validIndex in Valid:
     for i in range(RowLenght - 2):
         for j in range(RowLenght - 2):
@@ -32,19 +32,25 @@ for validIndex in Valid:
                 # Value in the node itself (center of the cross)
                 Matrix = np.append(Matrix, 4)
             elif abs(validIndex - index) == 1 or abs(validIndex - index) == RowLenght:
-                # Соседние элементы и элементы, отличающиеся на длину сетки некрайних узлов
-                # (концы креста)
+                # Adjacent nodes and nodes differing by the length of the grid
+                # (ends of the cross)
                 Matrix = np.append(Matrix, -1)
             else:
-                # Остальные значения = 0
+                # All other values are zero
                 Matrix = np.append(Matrix, 0)
 
-# Преобразование строки в матрицу
-Matrix = Matrix.reshape(len(Valid), len(Valid))
-Matrix = Matrix / h / h  # учитываем h
+Matrix = Matrix.reshape(len(Valid), len(Valid)) # Reshaping to a matrix
+Matrix = Matrix / h / h # Taking h (grid step) into account
 
-print("Получаемая матрица СЛАУ:")
+# Printing SLE matrix
+print("\nCalculated SLE matrix:")
 print(Matrix)
 
-plt.spy(Matrix) # Визуализация матрицы СЛАУ
+# Plotting SLE matrix visualization
+figMatrix, axMatrix = plt.subplots(1, 1)
+figMatrix.canvas.manager.set_window_title('Calculated SLE matrix visualization')
+axMatrix.set_title('Calculated SLE matrix visualization')
+axMatrix.spy(Matrix)
+
+# Showing all figures
 plt.show()
