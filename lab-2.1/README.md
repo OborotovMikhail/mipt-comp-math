@@ -2,13 +2,13 @@
 
 ## Contents
 
-[Task](#Task)
+[Task](#task)
 
-[Calculation method](#Calculation-method)
+[Calculation method](#calculation-method)
 
-[Program parameters](#Program-parameters)
+[Program parameters](#program-parameters)
 
-[Program output](#Program-output)
+[Program output](#program-output)
 
 ## Task
 
