@@ -15,7 +15,7 @@ $$ div(a(x,y) \cdot grad(u(x,y))) = f(x,y) $$
 
 The area of interest:
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.2/readme-images/image-area.png? "The area of interest")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.2/readme-images/image-area.png? "The area of interest")
 
 Right side of the equation is not zero on the square S. Function $a(x,y) = (x^2 + 1)/10$ by default.
 
@@ -25,11 +25,11 @@ Right side of the equation is not zero on the square S. Function $a(x,y) = (x^2 
 
 Below is a theoretical derivation of the algorithm for compiling the SLE (system of linear equations) matrix for this equation.
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.2/readme-images/image-theory-1.jpg? "Theory")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.2/readme-images/image-theory-1.jpg? "Theory")
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.2/readme-images/image-theory-2.jpg? "Theory")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.2/readme-images/image-theory-2.jpg? "Theory")
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.2/readme-images/image-theory-3.jpg? "Theory")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.2/readme-images/image-theory-3.jpg? "Theory")
 
 With the help of these coefficients of the elements we will compute a matrix form for our SLE.
 
@@ -50,20 +50,20 @@ However, in order to preserve the dimensions of arrays when plotting graphs, the
 
 Plot of the function $f(x,y)$ defined by the condition:
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.2/readme-images/image-plot-1.png? "f(x,y) function")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.2/readme-images/image-plot-1.png? "f(x,y) function")
 
 Matrix form of the SLE plots in black-and-white and color versions:
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.2/readme-images/image-plot-2.1.png? "Matrix form of the SLE")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.2/readme-images/image-plot-2.1.png? "Matrix form of the SLE")
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.2/readme-images/image-plot-2.2.png? "Matrix form of the SLE")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.2/readme-images/image-plot-2.2.png? "Matrix form of the SLE")
 
 Convergence plot of the iterative method used (Jacobi):
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.2/readme-images/image-plot-3.1.png? "Convergence of the Jacobi method")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.2/readme-images/image-plot-3.1.png? "Convergence of the Jacobi method")
 
 Finally, the solution plot:
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.2/readme-images/image-plot-3.2.png? "Solution")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.2/readme-images/image-plot-3.2.png? "Solution")
 
 [:arrow_up: Back to contents](#Contents)
