@@ -55,14 +55,14 @@ graph on which all concentrations are plotted together.
 
 Individual concentration graphs:
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.1/readme-images/image-plot-1.png? "Concentration of A")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.1/readme-images/image-plot-1.png? "Concentration of A")
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.1/readme-images/image-plot-2.png? "Concentration of B")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.1/readme-images/image-plot-2.png? "Concentration of B")
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.1/readme-images/image-plot-3.png? "Concentration of C")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.1/readme-images/image-plot-3.png? "Concentration of C")
 
 All concentrations on the same graph:
 
-![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/main/lab-2.1/readme-images/image-plot-4.png? "All concentrations on the same graph")
+![alt text](https://github.com/OborotovMikhail/mipt-comp-math/blob/master/lab-2.1/readme-images/image-plot-4.png? "All concentrations on the same graph")
 
 [:arrow_up: Back to contents](#Contents)
